@@ -52,7 +52,6 @@ sub.on("ready", function() {
 
 	// Subscribe to the channel
 
-	sub.unsubscribe();
 	sub.subscribe("subscription-channel");
 
 	console.log("Subscribed to messages :)");
@@ -66,7 +65,6 @@ sub.on("ready", function() {
 	// Set up the subscription to renew after 10 minutes
 
 	refreshIntervalId = setInterval(function() {
-		sub.unsubscribe();
 		sub.subscribe("subscription-channel");
 
 		console.log("Refreshed subscription!");
