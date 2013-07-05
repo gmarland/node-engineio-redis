@@ -11,4 +11,4 @@ Hopefully, with the comments I've included, it should be pretty easy to understa
 
 **Disclaimer**
 
-I took this code straight from my implementation of <a href="http://www.dotstorming.com" target="_blank">the real time brainstorming/dot voting app</a> I wrote so might need a little tweaking (especially the client which I used backbone.js to write).
+I took this code straight from my implementation of <a href="http://www.dotstorming.com" target="_blank">a real time brainstorming/dot voting app</a> I wrote so might need a little tweaking (especially the client which I used backbone.js to write).
