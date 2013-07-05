@@ -1,0 +1,87 @@
+<html>
+	<head></head>
+	<body>
+  		<script data-main="/app/config" src="/vendor/js/libs/engine.io.js"></script>
+		<script type="text/javascript">
+			function connectSockets() {
+				var that = this;
+
+				// Always makes sense to check if the socket already exists and remove it if so
+
+				if (this._socket != null) {
+					try
+					{
+						console.log("Retrying webbsocket connection");
+					}
+					catch (er) {}
+
+	    			this._socket.removeAllListeners();
+	    			this._socket = null;
+				}
+
+				// Set up your socket
+
+				this._socket = eio("http://localhost:8080/");
+
+				// Open up the socket
+
+			  	this._socket.onopen = function() {
+			  		try
+			  		{
+			  			console.log("Connected to websocket");
+					}
+					catch (er) {}
+
+					// Send an initial package, this helps check that the socket is truely open
+
+					that._socket.send(JSON.stringify({ action: "Establishing connection" }));
+
+					// Action for receiving a message from the socket.
+
+				    that._socket.onmessage = function(package){
+				  		that._connectionAttempts = 0;
+
+				  		// Parse out the socket message data JSON as engine.io only lets you pass around string (as far as I can tell)
+
+				    	var socketPackage = JSON.parse(package.data);
+
+				    	// Switch through the actions to perform the relevant one based on what was in the package
+
+				    	if (socketPackage.action != null) {
+			    			switch(socketPackage.action) {
+			    				case "my-action":
+			    					break;
+			    			}
+				    	}
+				    };
+				};
+
+			  	this._socket.onclose = function() {
+			  		try
+			  		{
+			  			console.log("Disconnected from websocket");
+					}
+					catch (er) {}
+
+					// The websocket might fail for some reason so attempt to reconnect it up to a certain number of times
+
+			  		that._connectionAttempts++;
+
+			  		if (that._connectionAttempts < 10) {
+	        			that.connectSockets();
+			  		}
+				}
+			}
+
+			function sendMessage(action, data) {
+				// Create your package to be sent, have a string action to describe what the action is and the data package
+
+				var socketPackage = { action: action, data: data }
+
+				// Stringify it into JSON for sending over engine.io
+
+				this._socket.send(JSON.stringify(socketPackage));
+			}
+		</script>
+	</body>
+</html>
