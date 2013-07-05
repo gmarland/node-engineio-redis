@@ -5,7 +5,7 @@ This is a template to get you running using node.js with engine.io and redis PUB
 
 ## Overview
 
-Hopefully this will help people not have to go through the same heartache I had while trying to make engine.io work over several servers using the redis PUB/SUB functionality.
+Maybe this will help people not have to go through the same heartache I had while trying to make engine.io work over several servers using the redis PUB/SUB functionality.
 
 Hopefully, with the comments I've included, it should be pretty easy to understand. The app.js is for the server side and the client.html is used for the client  (obviously)
 
